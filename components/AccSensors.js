@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Accelerometer } from "expo-sensors";
 
 export default function AccSensors() {
+  // const accArray = [];
   const [data, setData] = useState({
     x: 0,
     y: 0,
@@ -10,24 +11,36 @@ export default function AccSensors() {
   });
   const [subscription, setSubscription] = useState(null);
 
+  // So basically i want to store data from data state or Accelerometer Data. 
+  // Any way you can i want to be able to access it. 
+  // In the future i will send the stored data to an API for Human Activity recognition.
+
+  // for (let i = 0; i < 120000; i++) {
+  //   accArray.push(data) 
+  //   // console.log(i);
+  // }
+  // console.log(accArray)
+
   const _slow = () => {
     Accelerometer.setUpdateInterval(1000);
   };
 
   const _fast = () => {
-    Accelerometer.setUpdateInterval(16);
+    Accelerometer.setUpdateInterval(200);
+    // Accelerometer.setUpdateInterval(16);
   };
 
   const _subscribe = () => {
     setSubscription(
       Accelerometer.addListener((accelerometerData) => {
-        setData(accelerometerData);
+        setData(accelerometerData); 
       })
     );
   };
 
-  // console.log(data);
-
+  // const accArray = [...data, data]
+  // console.log(accArray)
+  
   const _unsubscribe = () => {
     subscription && subscription.remove();
     setSubscription(null);
